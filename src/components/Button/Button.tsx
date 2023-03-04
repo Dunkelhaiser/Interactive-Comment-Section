@@ -5,12 +5,12 @@ interface Props {
     look?: string;
     icon?: JSX.Element;
     color?: "primary" | "warning";
-    onClick?: () => void;
+    onClick: () => void;
 }
 
-const Button: React.FC<Props> = ({ title, look = "solid", color = "primary", icon }) => {
+const Button: React.FC<Props> = ({ title, look = "solid", color = "primary", icon, onClick }) => {
     return (
-        <button type="button" className={`${ButtonStyles[look]} ${ButtonStyles[color]}`}>
+        <button type="button" className={`${ButtonStyles[look]} ${ButtonStyles[color]}`} onClick={onClick}>
             {icon}
             {title}
         </button>

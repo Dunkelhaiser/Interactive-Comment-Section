@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import SectionStyles from "./CommentSection.module.scss";
 
 interface Props {

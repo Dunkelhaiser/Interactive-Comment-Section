@@ -46,8 +46,10 @@
     .content {
         @include flex($gap: 1rem);
 
+        width: 100%;
+
         .header {
-            @include flex($direction: row, $justify: space-between, $gap: 1.5rem);
+            @include flex($direction: row, $align: center, $justify: space-between, $gap: 1.5rem);
 
             width: 100%;
 

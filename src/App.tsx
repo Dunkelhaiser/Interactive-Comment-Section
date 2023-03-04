@@ -1,15 +1,22 @@
+import { useState } from "react";
 import Comment from "./components/Comment/Comment";
 import CommentInput from "./components/CommentInput/CommentInput";
 import CommentSection from "./components/CommentSection/CommentSection";
 import comments from "./data.json";
 import "./scss/styles.scss";
+import CommentType from "./Types/Comment";
 
 function App() {
-    const commentsArr = comments.comments;
+    const [commentsList, setCommentsList] = useState<CommentType[]>(comments.comments);
+
+    const handleCommentSubmit = (comment: CommentType) => {
+        setCommentsList((prevComments) => [comment, ...prevComments]);
+    };
+
     return (
         <main className="center">
             <CommentSection>
-                {commentsArr.map((comment) => (
+                {commentsList.map((comment) => (
                     <Comment
                         key={comment.id}
                         avatar={comment.user.image.webp}
@@ -20,7 +27,7 @@ function App() {
                     />
                 ))}
 
-                <CommentInput />
+                <CommentInput onCommentSubmit={handleCommentSubmit} />
             </CommentSection>
         </main>
     );
