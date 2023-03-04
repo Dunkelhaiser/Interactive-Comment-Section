@@ -1,0 +1,5 @@
+@use "../../scss/abstract/mixins" as *;
+
+.section {
+    @include flex($gap: 1rem, $align: stretch);
+}

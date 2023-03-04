@@ -1,0 +1,35 @@
+@use "../../scss/abstract/mixins" as *;
+@use "../../scss/abstract/screen-queries" as *;
+
+.layout {
+    @include flex($direction: row, $justify: space-between, $gap: 1rem);
+
+    .logo {
+        max-width: 2.25rem;
+    }
+
+    textarea {
+        resize: none;
+
+        flex-grow: 1;
+
+        padding: 0.5rem 1rem;
+
+        border: 1px solid var(--light-gray);
+        border-radius: 0.25em;
+
+        &:active,
+        &:focus {
+            outline: 1.5px solid var(--moderate-blue);
+        }
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include respond-phone {
+        flex-flow: row-reverse wrap;
+
+        .logo {
+            order: 2;
+        }
+    }
+}

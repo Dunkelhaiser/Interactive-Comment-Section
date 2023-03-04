@@ -9,7 +9,7 @@
 html {
     font-family: var(--font);
     color: var(--dark-blue);
-    background-color: var(--white);
+    background-color: var(--very-light-gray);
 }
 
 img,
@@ -50,4 +50,37 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
     box-shadow: 0 0 0 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--moderate-blue);
+    background-clip: content-box;
+    border-radius: 0.5em;
+
+    &:hover {
+        background-color: var(--moderate-blue-hover);
+    }
+
+    &:active {
+        background-color: var(--moderate-blue-active);
+    }
+}
+
+.center {
+    max-width: 936px;
+    margin: 0 auto;
+    padding: 2rem 5rem;
+
+    /* stylelint-disable-next-line order/order */
+    @include respond-phone {
+        padding: 2rem 1.5rem;
+    }
 }
