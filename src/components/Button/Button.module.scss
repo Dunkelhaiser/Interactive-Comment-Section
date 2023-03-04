@@ -4,12 +4,14 @@
     --color: var(--moderate-blue);
     --color-hover: var(--moderate-blue-hover);
     --color-active: var(--moderate-blue-active);
+    --color-border: var(--dark-blue);
 }
 
 .warning {
     --color: var(--soft-red);
     --color-hover: var(--pale-red);
     --color-active: var(--dark-red);
+    --color-border: var(--dark-red);
 }
 
 .button {
@@ -29,7 +31,7 @@
     text-transform: uppercase;
 
     background-color: var(--color);
-    border: 0.5px solid var(--dark-blue);
+    border: 0.5px solid var(--color-border);
     border-radius: 0.5em;
 
     &:hover,
