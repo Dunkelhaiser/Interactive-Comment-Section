@@ -16,13 +16,14 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit }) => {
 
     const createComment = () => {
         const comment: CommentType = {
-            id: Number(uuid()),
+            id: uuid(),
             content: text,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             user: { username: user!.name, image: { webp: user!.avatar } },
             createdAt: "Now",
             score: 0,
         };
+        console.log(comment);
         onCommentSubmit(comment);
         setText("");
     };

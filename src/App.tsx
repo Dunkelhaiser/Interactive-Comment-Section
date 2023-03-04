@@ -13,6 +13,10 @@ function App() {
         setCommentsList((prevComments) => [comment, ...prevComments]);
     };
 
+    const handleCommentDelete = (id: string) => {
+        setCommentsList((prevComments) => prevComments.filter((obj) => obj.id !== id));
+    };
+
     return (
         <main className="center">
             <CommentSection>
@@ -24,6 +28,8 @@ function App() {
                         date={comment.createdAt}
                         count={comment.score}
                         text={comment.content}
+                        id={comment.id}
+                        removeComment={handleCommentDelete}
                     />
                 ))}
 

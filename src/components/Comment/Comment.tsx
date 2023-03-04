@@ -7,17 +7,24 @@ import Button from "../Button/Button";
 import { UserContext } from "../../store/UserContext";
 
 interface Props {
+    id: string;
     avatar: string;
     name: string;
     date: string;
     count: number;
     text: string;
+    removeComment: (id: string) => void;
 }
 
-const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
+const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeComment }) => {
     const { user } = useContext(UserContext);
     const [counter, setCounter] = useState(count);
     const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
+
+    const deleteComment = () => {
+        removeComment(id);
+    };
+
     return (
         <CommentCard className={CommentStyles.comment}>
             <aside>
@@ -66,7 +73,13 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                     {user?.name === name ? (
                         <>
                             <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} />
-                            <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} />
+                            <Button
+                                title="Delete"
+                                look="text"
+                                color="warning"
+                                icon={<FontAwesomeIcon icon={faTrash} />}
+                                onClick={deleteComment}
+                            />
                         </>
                     ) : (
                         <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
@@ -84,7 +97,13 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                         {user?.name === name ? (
                             <>
                                 <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} />
-                                <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} />
+                                <Button
+                                    title="Delete"
+                                    look="text"
+                                    color="warning"
+                                    icon={<FontAwesomeIcon icon={faTrash} />}
+                                    onClick={deleteComment}
+                                />
                             </>
                         ) : (
                             <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />

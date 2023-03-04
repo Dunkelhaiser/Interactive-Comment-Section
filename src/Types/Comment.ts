@@ -1,5 +1,5 @@
 export default interface CommentType {
-    id: number;
+    id: string;
     content: string;
     createdAt: string;
     score: number;
@@ -11,7 +11,7 @@ export default interface CommentType {
         username: string;
     };
     replies?: {
-        id: number;
+        id: string;
         content: string;
         createdAt: string;
         score: number;
