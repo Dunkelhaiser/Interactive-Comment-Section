@@ -6,10 +6,11 @@ import comments from "./data.json";
 import "./scss/styles.scss";
 
 function App() {
+    const commentsArr = comments.comments;
     return (
         <main className="center">
             <CommentSection>
-                {comments.comments.map((comment) => (
+                {commentsArr.map((comment) => (
                     <Comment
                         key={uuid()}
                         avatar={comment.user.image.webp}

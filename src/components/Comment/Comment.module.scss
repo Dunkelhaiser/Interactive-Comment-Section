@@ -23,6 +23,7 @@
 
         .operator {
             cursor: pointer;
+            user-select: none;
             color: var(--moderate-blue-counter);
 
             &:hover,
@@ -33,6 +34,12 @@
             &:active {
                 color: var(--moderate-blue-active);
             }
+        }
+
+        .operator_selected {
+            cursor: pointer;
+            user-select: none;
+            color: var(--moderate-blue-active);
         }
     }
 

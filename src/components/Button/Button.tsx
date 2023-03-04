@@ -5,6 +5,7 @@ interface Props {
     look?: string;
     icon?: JSX.Element;
     color?: "primary" | "warning";
+    onClick?: () => void;
 }
 
 const Button: React.FC<Props> = ({ title, look = "solid", color = "primary", icon }) => {

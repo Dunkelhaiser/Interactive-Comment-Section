@@ -15,6 +15,7 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
     const [counter, setCounter] = useState(count);
+    const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
     return (
         <CommentCard className={CommentStyles.comment}>
             <aside>
@@ -22,9 +23,18 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                     <span
                         role="button"
                         tabIndex={0}
-                        className={CommentStyles.operator}
+                        className={decision === "upvote" ? CommentStyles.operator_selected : CommentStyles.operator}
                         onClick={() => {
-                            setCounter((prev) => prev + 1);
+                            if (decision === "upvote") {
+                                setCounter((prev) => prev - 1);
+                                setDecision("");
+                            } else if (decision === "downvote") {
+                                setCounter((prev) => prev + 2);
+                                setDecision("upvote");
+                            } else {
+                                setCounter((prev) => prev + 1);
+                                setDecision("upvote");
+                            }
                         }}
                     >
                         +
@@ -33,9 +43,18 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                     <span
                         role="button"
                         tabIndex={0}
-                        className={CommentStyles.operator}
+                        className={decision === "downvote" ? CommentStyles.operator_selected : CommentStyles.operator}
                         onClick={() => {
-                            setCounter((prev) => prev - 1);
+                            if (decision === "downvote") {
+                                setCounter((prev) => prev + 1);
+                                setDecision("");
+                            } else if (decision === "upvote") {
+                                setCounter((prev) => prev - 2);
+                                setDecision("downvote");
+                            } else {
+                                setCounter((prev) => prev - 1);
+                                setDecision("downvote");
+                            }
                         }}
                     >
                         -
