@@ -1,22 +1,60 @@
+@use "../../scss/abstract/mixins" as *;
+
+.primary {
+    --color: var(--moderate-blue);
+    --color-hover: var(--moderate-blue-hover);
+    --color-active: var(--moderate-blue-active);
+}
+
+.warning {
+    --color: var(--soft-red);
+    --color-hover: var(--pale-red);
+    --color-active: var(--dark-red);
+}
+
 .button {
+    @include flex($direction: row, $align: center, $gap: 0.5rem);
+
     cursor: pointer;
+    font-weight: 500;
+    transition: var(--hover);
+}
+
+.solid {
+    @extend .button;
 
     padding: 0.75rem 1.5rem;
 
-    font-weight: 500;
     color: var(--white);
     text-transform: uppercase;
 
-    background-color: var(--moderate-blue);
+    background-color: var(--color);
     border: 0.5px solid var(--dark-blue);
     border-radius: 0.5em;
 
     &:hover,
     &:focus-visible {
-        background-color: var(--moderate-blue-hover);
+        background-color: var(--color-hover);
     }
 
     &:active {
-        background-color: var(--moderate-blue-active);
+        background-color: var(--color-active);
+    }
+}
+
+.text {
+    @extend .button;
+
+    color: var(--color);
+    background-color: transparent;
+    border: none;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--color-hover);
+    }
+
+    &:active {
+        color: var(--color-active);
     }
 }

@@ -4,7 +4,7 @@
 .layout {
     @include flex($direction: row, $justify: space-between, $gap: 1rem);
 
-    .logo {
+    .avatar {
         max-width: 2.25rem;
     }
 
@@ -28,7 +28,7 @@
     @include respond-phone {
         flex-flow: row-reverse wrap;
 
-        .logo {
+        .avatar {
             order: 2;
         }
     }

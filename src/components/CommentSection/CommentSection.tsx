@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import SectionStyles from "./CommentSection.module.scss";
 
 interface Props {
-    children: ReactElement | ReactElement[];
+    children: React.ReactNode;
 }
 
 const CommentSection: React.FC<Props> = ({ children }) => {

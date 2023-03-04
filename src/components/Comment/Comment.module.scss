@@ -1,0 +1,117 @@
+@use "../../scss/abstract/mixins" as *;
+@use "../../scss/abstract/screen-queries" as *;
+
+.comment {
+    @include flex($direction: row, $gap: 1.5rem);
+
+    .avatar {
+        max-width: 2rem;
+    }
+
+    .counter {
+        @include flex($align: center, $gap: 0.75rem);
+
+        width: 100%;
+        max-width: 45px;
+        padding: 0.5rem;
+
+        font-weight: 500;
+        color: var(--moderate-blue);
+
+        background-color: var(--very-light-gray);
+        border-radius: 0.5em;
+
+        .operator {
+            cursor: pointer;
+            color: var(--moderate-blue-counter);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--moderate-blue-hover);
+            }
+
+            &:active {
+                color: var(--moderate-blue-active);
+            }
+        }
+    }
+
+    .content {
+        @include flex($gap: 1rem);
+
+        .header {
+            @include flex($direction: row, $justify: space-between, $gap: 1.5rem);
+
+            width: 100%;
+
+            .info {
+                @include flex($direction: row, $align: center, $gap: 1rem);
+
+                @include respond-phone {
+                    width: 100%;
+
+                    .date {
+                        margin-left: auto;
+                    }
+                }
+
+                .name {
+                    font-weight: 500;
+                    color: var(--dark-blue);
+                }
+
+                .date {
+                    color: var(--grayish-blue);
+                }
+            }
+
+            .buttons {
+                @include flex($direction: row, $align: center, $gap: 2rem);
+
+                @include respond-phone {
+                    display: none;
+                }
+            }
+        }
+
+        p {
+            line-height: 1.5;
+            color: var(--grayish-blue);
+        }
+    }
+
+    aside {
+        width: 100%;
+        max-width: 45px;
+
+        /* stylelint-disable-next-line order/order */
+        @include respond-phone {
+            @include flex($direction: row-reverse, $align: center, $justify: space-between, $gap: 2rem);
+
+            order: 2;
+            max-width: 100%;
+        }
+    }
+
+    .buttons_phone {
+        display: none;
+
+        /* stylelint-disable-next-line order/order */
+        @include respond-phone {
+            @include flex($direction: row, $align: center, $gap: 1.5rem);
+        }
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include respond-phone {
+        flex-direction: column;
+
+        .counter {
+            @include flex($direction: row, $justify: space-between);
+
+            order: 2;
+            max-width: 92px;
+            padding: 0.5rem 1rem;
+        }
+    }
+}
