@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import Comment from "./components/Comment/Comment";
 import CommentInput from "./components/CommentInput/CommentInput";
 import CommentSection from "./components/CommentSection/CommentSection";
@@ -12,7 +11,7 @@ function App() {
             <CommentSection>
                 {commentsArr.map((comment) => (
                     <Comment
-                        key={uuid()}
+                        key={comment.id}
                         avatar={comment.user.image.webp}
                         name={comment.user.username}
                         date={comment.createdAt}

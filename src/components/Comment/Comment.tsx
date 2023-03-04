@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { faArrowLeft, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import CommentCard from "../CommentCard/CommentCard";
 import CommentStyles from "./Comment.module.scss";
 import Button from "../Button/Button";
+import { UserContext } from "../../store/UserContext";
 
 interface Props {
     avatar: string;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
+    const { user } = useContext(UserContext);
     const [counter, setCounter] = useState(count);
     const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
     return (
@@ -61,9 +63,14 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                     </span>
                 </div>
                 <div className={CommentStyles.buttons_phone}>
-                    {/* <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} /> */}
-                    {/* <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} /> */}
-                    <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                    {user?.name === name ? (
+                        <>
+                            <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} />
+                            <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} />
+                        </>
+                    ) : (
+                        <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                    )}
                 </div>
             </aside>
             <div className={CommentStyles.content}>
@@ -74,9 +81,14 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text }) => {
                         <span className={CommentStyles.date}>{date}</span>
                     </div>
                     <div className={CommentStyles.buttons}>
-                        {/* <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} />
-                        <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} /> */}
-                        <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                        {user?.name === name ? (
+                            <>
+                                <Button title="Edit" look="text" icon={<FontAwesomeIcon icon={faPen} />} />
+                                <Button title="Delete" look="text" color="warning" icon={<FontAwesomeIcon icon={faTrash} />} />
+                            </>
+                        ) : (
+                            <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                        )}
                     </div>
                 </div>
                 <p>{text}</p>
