@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Comment from "./components/Comment/Comment";
 import CommentInput from "./components/CommentInput/CommentInput";
 import CommentSection from "./components/CommentSection/CommentSection";
@@ -7,7 +7,8 @@ import "./scss/styles.scss";
 import CommentType from "./Types/Comment";
 
 function App() {
-    const [commentsList, setCommentsList] = useState<CommentType[]>(data.comments);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const [commentsList, setCommentsList] = useState<CommentType[]>(JSON.parse(localStorage.getItem("comments")!) || data.comments);
 
     const handleCommentSubmit = (comment: CommentType) => {
         setCommentsList((prev) => [comment, ...prev]);
@@ -29,6 +30,10 @@ function App() {
         });
         setCommentsList(updatedComments);
     };
+
+    useEffect(() => {
+        localStorage.setItem("comments", JSON.stringify(commentsList));
+    }, [commentsList]);
 
     return (
         <main className="center">

@@ -30,7 +30,8 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
     const [isEditing, setIsEditing] = useState(false);
     const [editingComment, setEditingComment] = useState(text);
     const { isShowing, showModal, hideModal } = useModal();
-    const [commentsList, setCommentsList] = useState<CommentType[]>(replies);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const [repliesList, setRepliesList] = useState<CommentType[]>(replies);
 
     const deleteComment = () => {
         removeComment(id);
@@ -43,15 +44,15 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
 
     const handleCommentSubmit = (comment: CommentType) => {
         setIsReplying(false);
-        setCommentsList((prev) => [comment, ...prev]);
+        setRepliesList((prev) => [comment, ...prev]);
     };
 
     const handleCommentDelete = (replyId: string) => {
-        setCommentsList((prev) => prev.filter((comment) => comment.id !== replyId));
+        setRepliesList((prev) => prev.filter((comment) => comment.id !== replyId));
     };
 
     const handleCommentEdit = (replyId: string, editedComment: string) => {
-        const updatedComments = commentsList.map((comment) => {
+        const updatedComments = repliesList.map((comment) => {
             if (comment.id === replyId) {
                 return {
                     ...comment,
@@ -60,7 +61,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
             }
             return comment;
         });
-        setCommentsList(updatedComments);
+        setRepliesList(updatedComments);
     };
 
     return (
@@ -181,7 +182,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
             </CommentCard>
             {isReplying && <CommentInput onCommentSubmit={handleCommentSubmit} type="Reply" />}
             <section className={CommentStyles.replies}>
-                {commentsList?.map((comment) => (
+                {repliesList?.map((comment) => (
                     <Comment
                         key={comment.id}
                         avatar={comment.user.image.webp}
