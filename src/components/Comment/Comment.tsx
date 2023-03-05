@@ -16,9 +16,10 @@ interface Props {
     count: number;
     text: string;
     removeComment: (id: string) => void;
+    editComment: (id: string, editComment: string) => void;
 }
 
-const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeComment }) => {
+const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeComment, editComment }) => {
     const { user } = useContext(UserContext);
     const [counter, setCounter] = useState(count);
     const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
@@ -28,6 +29,11 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
 
     const deleteComment = () => {
         removeComment(id);
+    };
+
+    const updateComment = () => {
+        editComment(id, editContent);
+        setIsEditting(false);
     };
 
     return (
@@ -129,7 +135,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                     {isEditting ? (
                         <div>
                             <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={3} />
-                            <Button title="Update" />
+                            <Button title="Update" onClick={updateComment} />
                         </div>
                     ) : (
                         <p>{text}</p>

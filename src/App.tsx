@@ -17,6 +17,19 @@ function App() {
         setCommentsList((prevComments) => prevComments.filter((obj) => obj.id !== id));
     };
 
+    const handleCommentEdit = (id: string, editedComment: string) => {
+        const updatedComments = commentsList.map((comment) => {
+            if (comment.id === id) {
+                return {
+                    ...comment,
+                    content: editedComment,
+                };
+            }
+            return comment;
+        });
+        setCommentsList(updatedComments);
+    };
+
     return (
         <main className="center">
             <CommentSection>
@@ -30,6 +43,7 @@ function App() {
                         text={comment.content}
                         id={comment.id}
                         removeComment={handleCommentDelete}
+                        editComment={handleCommentEdit}
                     />
                 ))}
 
