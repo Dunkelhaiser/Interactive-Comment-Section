@@ -150,4 +150,9 @@
     @include flex($gap: 0.5rem, $align: stretch);
 
     margin-left: 5.5rem;
+
+    /* stylelint-disable-next-line order/order */
+    @include respond-phone {
+        margin-left: 1rem;
+    }
 }
