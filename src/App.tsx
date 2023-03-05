@@ -2,12 +2,12 @@ import { useState } from "react";
 import Comment from "./components/Comment/Comment";
 import CommentInput from "./components/CommentInput/CommentInput";
 import CommentSection from "./components/CommentSection/CommentSection";
-import comments from "./data.json";
+import data from "./data.json";
 import "./scss/styles.scss";
 import CommentType from "./Types/Comment";
 
 function App() {
-    const [commentsList, setCommentsList] = useState<CommentType[]>(comments.comments);
+    const [commentsList, setCommentsList] = useState<CommentType[]>(data.comments);
 
     const handleCommentSubmit = (comment: CommentType) => {
         setCommentsList((prev) => [comment, ...prev]);
@@ -42,6 +42,7 @@ function App() {
                         count={comment.score}
                         text={comment.content}
                         id={comment.id}
+                        replies={comment.replies}
                         removeComment={handleCommentDelete}
                         editComment={handleCommentEdit}
                     />

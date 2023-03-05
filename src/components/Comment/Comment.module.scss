@@ -145,3 +145,9 @@
         }
     }
 }
+
+.replies {
+    @include flex($gap: 0.5rem, $align: stretch);
+
+    margin-left: 5.5rem;
+}

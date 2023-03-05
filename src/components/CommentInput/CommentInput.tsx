@@ -23,7 +23,6 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit }) => {
             createdAt: "Now",
             score: 0,
         };
-        console.log(comment);
         onCommentSubmit(comment);
         setText("");
     };

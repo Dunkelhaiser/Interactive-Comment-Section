@@ -7,6 +7,8 @@ import Button from "../Button/Button";
 import { UserContext } from "../../store/UserContext";
 import Modal from "../Modal/Modal";
 import useModal from "../Modal/useModal";
+import CommentType from "../../Types/Comment";
+import CommentInput from "../CommentInput/CommentInput";
 
 interface Props {
     id: string;
@@ -15,17 +17,20 @@ interface Props {
     date: string;
     count: number;
     text: string;
+    replies: CommentType[];
     removeComment: (id: string) => void;
     editComment: (id: string, editComment: string) => void;
 }
 
-const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeComment, editComment }) => {
+const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies, removeComment, editComment }) => {
     const { user } = useContext(UserContext);
     const [counter, setCounter] = useState(count);
     const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
+    const [isReplying, setIsReplying] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingComment, setEditingComment] = useState(text);
     const { isShowing, showModal, hideModal } = useModal();
+    const [commentsList, setCommentsList] = useState<CommentType[]>(replies);
 
     const deleteComment = () => {
         removeComment(id);
@@ -34,6 +39,23 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
     const updateComment = () => {
         editComment(id, editingComment);
         setIsEditing(false);
+    };
+
+    const handleCommentDelete = (replyId: string) => {
+        setCommentsList((prev) => prev.filter((comment) => comment.id !== replyId));
+    };
+
+    const handleCommentEdit = (replyId: string, editedComment: string) => {
+        const updatedComments = commentsList.map((comment) => {
+            if (comment.id === replyId) {
+                return {
+                    ...comment,
+                    content: editedComment,
+                };
+            }
+            return comment;
+        });
+        setCommentsList(updatedComments);
     };
 
     return (
@@ -99,7 +121,12 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                                 />
                             </>
                         ) : (
-                            <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                            <Button
+                                title="Reply"
+                                look="text"
+                                icon={<FontAwesomeIcon icon={faArrowLeft} />}
+                                onClick={() => setIsReplying((prev) => !prev)}
+                            />
                         )}
                     </div>
                 </aside>
@@ -128,7 +155,12 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                                     />
                                 </>
                             ) : (
-                                <Button title="Reply" look="text" icon={<FontAwesomeIcon icon={faArrowLeft} />} />
+                                <Button
+                                    title="Reply"
+                                    look="text"
+                                    icon={<FontAwesomeIcon icon={faArrowLeft} />}
+                                    onClick={() => setIsReplying((prev) => !prev)}
+                                />
                             )}
                         </div>
                     </div>
@@ -142,6 +174,23 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                     )}
                 </div>
             </CommentCard>
+            {isReplying && <CommentInput />}
+            <section className={CommentStyles.replies}>
+                {commentsList?.map((comment) => (
+                    <Comment
+                        key={comment.id}
+                        avatar={comment.user.image.webp}
+                        name={comment.user.username}
+                        date={comment.createdAt}
+                        count={comment.score}
+                        text={comment.content}
+                        id={comment.id}
+                        replies={comment?.replies}
+                        removeComment={handleCommentDelete}
+                        editComment={handleCommentEdit}
+                    />
+                ))}
+            </section>
             <Modal show={isShowing} onClose={hideModal} onClickBtn={deleteComment} />
         </>
     );
