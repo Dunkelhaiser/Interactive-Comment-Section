@@ -41,6 +41,11 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
         setIsEditing(false);
     };
 
+    const handleCommentSubmit = (comment: CommentType) => {
+        setIsReplying(false);
+        setCommentsList((prev) => [comment, ...prev]);
+    };
+
     const handleCommentDelete = (replyId: string) => {
         setCommentsList((prev) => prev.filter((comment) => comment.id !== replyId));
     };
@@ -174,7 +179,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
                     )}
                 </div>
             </CommentCard>
-            {isReplying && <CommentInput />}
+            {isReplying && <CommentInput onCommentSubmit={handleCommentSubmit} />}
             <section className={CommentStyles.replies}>
                 {commentsList?.map((comment) => (
                     <Comment
