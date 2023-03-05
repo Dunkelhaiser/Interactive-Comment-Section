@@ -10,11 +10,11 @@ function App() {
     const [commentsList, setCommentsList] = useState<CommentType[]>(comments.comments);
 
     const handleCommentSubmit = (comment: CommentType) => {
-        setCommentsList((prevComments) => [comment, ...prevComments]);
+        setCommentsList((prev) => [comment, ...prev]);
     };
 
     const handleCommentDelete = (id: string) => {
-        setCommentsList((prevComments) => prevComments.filter((obj) => obj.id !== id));
+        setCommentsList((prev) => prev.filter((comment) => comment.id !== id));
     };
 
     const handleCommentEdit = (id: string, editedComment: string) => {

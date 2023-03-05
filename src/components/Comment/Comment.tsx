@@ -23,8 +23,8 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
     const { user } = useContext(UserContext);
     const [counter, setCounter] = useState(count);
     const [decision, setDecision] = useState<"upvote" | "downvote" | "">("");
-    const [isEditting, setIsEditting] = useState(false);
-    const [editContent, setEditContent] = useState(text);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingComment, setEditingComment] = useState(text);
     const { isShowing, showModal, hideModal } = useModal();
 
     const deleteComment = () => {
@@ -32,8 +32,8 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
     };
 
     const updateComment = () => {
-        editComment(id, editContent);
-        setIsEditting(false);
+        editComment(id, editingComment);
+        setIsEditing(false);
     };
 
     return (
@@ -88,7 +88,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                                     title="Edit"
                                     look="text"
                                     icon={<FontAwesomeIcon icon={faPen} />}
-                                    onClick={() => setIsEditting((prev) => !prev)}
+                                    onClick={() => setIsEditing((prev) => !prev)}
                                 />
                                 <Button
                                     title="Delete"
@@ -117,7 +117,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                                         title="Edit"
                                         look="text"
                                         icon={<FontAwesomeIcon icon={faPen} />}
-                                        onClick={() => setIsEditting((prev) => !prev)}
+                                        onClick={() => setIsEditing((prev) => !prev)}
                                     />
                                     <Button
                                         title="Delete"
@@ -132,9 +132,9 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, removeC
                             )}
                         </div>
                     </div>
-                    {isEditting ? (
+                    {isEditing ? (
                         <div>
-                            <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={3} />
+                            <textarea value={editingComment} onChange={(e) => setEditingComment(e.target.value)} rows={3} />
                             <Button title="Update" onClick={updateComment} />
                         </div>
                     ) : (
