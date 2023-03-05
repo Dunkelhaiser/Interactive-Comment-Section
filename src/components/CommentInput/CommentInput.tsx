@@ -8,9 +8,10 @@ import CommentType from "../../Types/Comment";
 
 interface Props {
     onCommentSubmit: (comment: CommentType) => void;
+    type?: "Reply" | "Send";
 }
 
-const CommentInput: React.FC<Props> = ({ onCommentSubmit }) => {
+const CommentInput: React.FC<Props> = ({ onCommentSubmit, type = "Send" }) => {
     const { user } = useContext(UserContext);
     const [text, setText] = useState("");
 
@@ -22,6 +23,7 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit }) => {
             user: { username: user!.name, image: { webp: user!.avatar } },
             createdAt: "Now",
             score: 0,
+            replies: [],
         };
         onCommentSubmit(comment);
         setText("");
@@ -31,7 +33,7 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit }) => {
         <CommentCard className={InputStyles.layout}>
             <img src={user?.avatar} alt="Avatar" className={InputStyles.avatar} />
             <textarea placeholder="Add a comment..." rows={3} value={text} onChange={(e) => setText(e.target.value)} />
-            <Button title="Send" onClick={createComment} />
+            <Button title={type} onClick={createComment} />
         </CommentCard>
     );
 };

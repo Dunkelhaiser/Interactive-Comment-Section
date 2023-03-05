@@ -179,7 +179,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
                     )}
                 </div>
             </CommentCard>
-            {isReplying && <CommentInput onCommentSubmit={handleCommentSubmit} />}
+            {isReplying && <CommentInput onCommentSubmit={handleCommentSubmit} type="Reply" />}
             <section className={CommentStyles.replies}>
                 {commentsList?.map((comment) => (
                     <Comment
