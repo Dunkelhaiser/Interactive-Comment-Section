@@ -21,7 +21,7 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit, type = "Send" }) => {
             content: text,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             user: { username: user!.name, image: { webp: user!.avatar } },
-            createdAt: "Now",
+            createdAt: new Date(),
             score: 0,
             replies: [],
         };

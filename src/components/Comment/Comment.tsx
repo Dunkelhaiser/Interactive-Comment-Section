@@ -14,7 +14,7 @@ interface Props {
     id: string;
     avatar: string;
     name: string;
-    date: string;
+    date: Date;
     count: number;
     text: string;
     replies: CommentType[];
@@ -32,11 +32,10 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
     const { isShowing, showModal, hideModal } = useModal();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const [repliesList, setRepliesList] = useState<CommentType[]>(replies);
-
     const deleteComment = () => {
         removeComment(id);
     };
-
+    console.log(date);
     const updateComment = () => {
         editComment(id, editingComment);
         setIsEditing(false);
@@ -62,6 +61,30 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
             return comment;
         });
         setRepliesList(updatedComments);
+    };
+
+    const getTimeSince = (createdAt: Date) => {
+        const now = new Date();
+        const elapsed = now.getTime() - createdAt.getTime();
+
+        const units = [
+            { unit: "second", factor: 1000 },
+            { unit: "minute", factor: 60 * 1000 },
+            { unit: "hour", factor: 60 * 60 * 1000 },
+            { unit: "day", factor: 24 * 60 * 60 * 1000 },
+            { unit: "month", factor: 30 * 24 * 60 * 60 * 1000 },
+            { unit: "year", factor: 365 * 24 * 60 * 60 * 1000 },
+        ];
+
+        for (let i = units.length - 1; i >= 0; i--) {
+            const { unit, factor } = units[i];
+            if (elapsed >= factor) {
+                const value = Math.floor(elapsed / factor);
+                return `${value} ${unit}${value !== 1 ? "s" : ""} ago`;
+            }
+        }
+
+        return "Now";
     };
 
     return (
@@ -141,7 +164,7 @@ const Comment: React.FC<Props> = ({ avatar, name, date, count, text, id, replies
                         <div className={CommentStyles.info}>
                             <img src={avatar} alt="avatar" className={CommentStyles.avatar} />
                             <span className={CommentStyles.name}>{name}</span>
-                            <span className={CommentStyles.date}>{date}</span>
+                            <span className={CommentStyles.date}>{getTimeSince(new Date(date))}</span>
                         </div>
                         <div className={CommentStyles.buttons}>
                             {user?.name === name ? (

@@ -1,7 +1,7 @@
 export default interface CommentType {
     id: string;
     content: string;
-    createdAt: string;
+    createdAt: Date;
     score: number;
     user: {
         image: {
