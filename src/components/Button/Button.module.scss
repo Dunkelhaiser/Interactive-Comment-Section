@@ -14,6 +14,15 @@
     --color-border: var(--dark-red);
 }
 
+button[disabled] {
+    --color: var(--grayish-blue);
+    --color-hover: var(--grayish-blue);
+    --color-active: var(--grayish-blue);
+    --color-border: var(--dark-blue);
+
+    cursor: default;
+}
+
 .button {
     @include flex($direction: row, $align: center, $gap: 0.5rem);
 

@@ -33,7 +33,7 @@ const CommentInput: React.FC<Props> = ({ onCommentSubmit, type = "Send" }) => {
         <CommentCard className={InputStyles.layout}>
             <img src={user?.avatar} alt="Avatar" className={InputStyles.avatar} />
             <textarea placeholder="Add a comment..." rows={3} value={text} onChange={(e) => setText(e.target.value)} />
-            <Button title={type} onClick={createComment} />
+            <Button title={type} onClick={createComment} disabled={!text.length} />
         </CommentCard>
     );
 };
